@@ -29,4 +29,3 @@ Trigger phrases: "video production", "video script", "storyboard", "shot list", 
 ## License
 
 MIT
-EOF

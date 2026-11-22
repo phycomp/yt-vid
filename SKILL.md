@@ -150,4 +150,3 @@ Mix broad + specific: `quantitative trading`, `algorithmic trading`, `Python`, `
 - `ffmpeg-transitions-effects` skill — FFmpeg transition recipes
 - `youtube-analytics` skill — YouTube Data API analytics
 - `social-media-skills/skills@scripting-and-storyboarding` — scripting + storyboarding
-EOF
