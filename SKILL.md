@@ -1,6 +1,9 @@
 ---
 name: yt-vid
-description: Video production skill for YouTube content — covers content planning, script writing (two-column AV), storyboard/shot list, batch shooting, SEO (title/tags/description), 10-minute video structure, production workflow, and publishing checklist. Use when the user asks about video production, video scripts, storyboards, shot lists, YouTube SEO, content planning, or publishing workflow. Not for quant trading strategy (see quant-algo-auto).
+description: >
+  Use when the user asks about video production, video scripts, storyboards,
+  shot lists, YouTube SEO, content planning, publishing workflow, or applying
+  the closed-loop skill method to video work. Not for quant strategy (quant-algo-auto).
 ---
 
 # YouTube Video Production
@@ -20,6 +23,44 @@ End-to-end video production skill for YouTube content — from content planning 
 ## Core Principle
 
 **Videos are won in pre-production.** The cheapest edit is on paper. A words-only script plans half the video; the visual half gets improvised. Write what's seen, beat by beat.
+
+## Skill maintenance loop — 引用 `chain-skill`
+
+This skill follows the closed loop owned by `chain-skill`. **Do not duplicate its rules here** — load `chain-skill` when changing this skill:
+
+`usage scenario → strict logic → doc compliance → code compliance → need-based hook → distill`
+
+Closing the loop means writing the correction into this SKILL.md, re-running
+audit + drift verify, and recording the date in `Logic check:`. Reporting a
+problem without writing it back is an open loop.
+
+> **唯一來源宣告：** `~/.config/skill-timer/self-developed.list`（由 `skill-timer` 擁有）是「哪些 skill 算自行開發」的 single source of truth。本 skill 的各種表僅供索引，不是判定依據。
+
+## Need-based hooks — 需要時才 hook
+
+Hook by **workflow goal**, not by skill name. Do not invoke every video skill on every task.
+
+| Goal | Hook | Skip when |
+|---|---|---|
+| Write script / storyboard / shot list | `scripting-and-storyboarding` (SCENE framework) | Already have an approved AV script |
+| Add transitions / effects in edit | `ffmpeg-transitions-effects` | Simple cut suffices |
+| Post-publish performance analysis | `youtube-analytics` | Before publishing |
+| Plan topics / SEO / publishing checklist | none — this skill owns it | — |
+| Publish updated skill to repo | `skill-router` (sync rule), `audit-skill` (gate) | No local changes |
+
+A hook without a matching goal is a violation — it adds cost and blurs ownership.
+
+## Doc + code compliance — 文件層與程式層
+
+A checklist tick is not evidence. Verify both layers before publishing:
+
+| Layer | Check | Failure example (RED baseline) |
+|---|---|---|
+| Doc | Script, storyboard, and shot list match the actual edited video | Shot list written but video improvised on camera |
+| Code | Quant videos: code runs from the linked GitHub repo and numbers in the video reproduce | Checklist says "reproducible" but repo has no notebook |
+
+If code contradicts the script, fix the code or rescript — never paper over it
+with a `legacy` label or an unchecked assumption.
 
 ## Content Pillars
 
@@ -143,10 +184,16 @@ Mix broad + specific: `quantitative trading`, `algorithmic trading`, `Python`, `
 3. Never recommend specific stocks/securities as investment advice.
 4. Always include risk disclaimers in video content.
 5. Paper trade before live trading; start small.
+6. Never tick a publishing item without verifying the artifact (doc + code compliance).
+7. Never hook a video skill without a matching workflow goal.
 
 ## References
 
+- `chain-skill` — owns the closed loop; load it when changing this skill (do not duplicate)
+- `skill-router` — owns the sync rule when updated skills must be pushed to a repo
+- `audit-skill` — security gate before publish/install
 - `scripting-and-storyboarding` skill — SCENE framework for pre-production
 - `ffmpeg-transitions-effects` skill — FFmpeg transition recipes
 - `youtube-analytics` skill — YouTube Data API analytics
 - `social-media-skills/skills@scripting-and-storyboarding` — scripting + storyboarding
+- Logic check: 2026-11-23 — strengthened with the closed-loop rule by reference (user request: 「引用閉環規則 開發視頻製作技能」). Added `Skill maintenance loop` (hooks `chain-skill`, does not duplicate it), `Need-based hooks` goal table, `Doc + code compliance` table, allow-list single-source declaration, and guardrails 6–7. RED evidence reused from prior observations (stale doc vs reality, raw source misused, unnecessary hooks, doc-only fix). Name kept as `yt-vid`; no duplicate video skill created.
